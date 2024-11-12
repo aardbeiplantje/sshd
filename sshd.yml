@@ -29,11 +29,15 @@ services:
       - sshdipv4
     ports:
       - target: 22
-        published: 22222
+        published: "${SSHD_EXTERNAL_INGRESS_PORT}"
         protocol: tcp
         mode: host
-      - target: 2222
-        published: 2222
+      - target: "${SSHD_INTERNAL_FORWARDING_PORT_01}"
+        published: "${SSHD_EXTERNAL_FORWARDING_PORT_01}"
+        protocol: tcp
+        mode: host
+      - target: "${SSHD_INTERNAL_FORWARDING_PORT_02}"
+        published: "${SSHD_EXTERNAL_FORWARDING_PORT_02}"
         protocol: tcp
         mode: host
     volumes:

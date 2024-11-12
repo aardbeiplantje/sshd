@@ -52,9 +52,12 @@ AcceptEnv LANG LC_*
 Subsystem	sftp	/usr/lib/openssh/sftp-server
 
 Match User ingress-user-*
-	AllowTcpForwarding remote
-	AllowAgentForwarding no
-	ForceCommand /bin/false
-	PermitUserRC no
-	PermitTTY no
-	AuthorizedKeysFile /sshd/authorized_keys/authorized_keys.%u
+    GatewayPorts yes
+    AllowTcpForwarding remote
+    AllowAgentForwarding no
+    PermitListen any
+    PermitOpen none
+    ForceCommand /bin/false
+    PermitUserRC no
+    PermitTTY no
+    AuthorizedKeysFile /sshd/authorized_keys/authorized_keys.%u

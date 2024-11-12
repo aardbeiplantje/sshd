@@ -35,5 +35,8 @@ docker network create --ipv6 --subnet fd53:5729:c558:8d8f::/64 sshdipv6 --attach
 
 Deploy stack:
 ```
+export SSHD_EXTERNAL_INGRESS_PORT=2222
+export SSHD_INTERNAL_FORWARDING_PORT_01=9998
+export SSHD_INTERNAL_FORWARDING_PORT_02=9999
 bash deploy.sh
 ```
