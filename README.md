@@ -26,6 +26,26 @@ Add labels:
 docker node update --label-add sshd=1 $HOSTNAME
 ```
 
+Make sure to enable ufw/firewall, and disable iptables in the docker config:
+In /etc/default/ufw:"
+```
+DEFAULT_FORWARD_POLICY="ACCEPT"
+```
+```
+ufw enable
+ufw default deny incoming
+```
+
+```
+cat /etc/docker/daemon.json
+{
+    "iptables": false
+}
+```
+```
+systemctl restart docker
+```
+
 # deploy
 
 Add network:
