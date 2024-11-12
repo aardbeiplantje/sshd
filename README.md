@@ -1,6 +1,7 @@
 # build.sh
 ```
 bash build.sh
+```
 
 # Setup docker swarm:
 ```
@@ -34,5 +35,5 @@ docker network create --ipv6 --subnet fd53:5729:c558:8d8f::/64 sshdipv6 --attach
 
 Deploy stack:
 ```
-DOCKER_REGISTRY=local DOCKER_REPOSITORY=sshd APP_NAME=sshd docker stack deploy --with-registry-auth --detach=false -c sshd.yml sshd
+bash deploy.sh
 ```
