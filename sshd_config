@@ -1,0 +1,60 @@
+Port 22
+AddressFamily any
+ListenAddress 0.0.0.0
+ListenAddress ::
+
+HostKey /sshd/host_keys/ssh_host_rsa_key
+HostKey /sshd/host_keys/ssh_host_ecdsa_key
+HostKey /sshd/host_keys/ssh_host_ed25519_key
+
+# Logging
+#SyslogFacility AUTH
+LogLevel DEBUG3
+
+LoginGraceTime 2m
+PermitRootLogin no
+StrictModes yes
+MaxAuthTries 6
+MaxSessions 10
+
+PubkeyAuthentication yes
+
+AuthorizedKeysFile /sshd/authorized_keys/authorized_keys.%u
+AuthorizedKeysCommand none
+AuthorizedKeysCommandUser nobody
+HostbasedAuthentication no
+IgnoreRhosts yes
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+KerberosAuthentication no
+GSSAPIAuthentication no
+UsePAM no
+AllowAgentForwarding no
+AllowTcpForwarding no
+GatewayPorts no
+X11Forwarding no
+PermitTTY no
+PrintMotd no
+PrintLastLog no
+TCPKeepAlive yes
+PermitUserEnvironment no
+UseDNS no
+PidFile /var/run/sshd.pid
+MaxStartups 10:30:100
+PermitTunnel no
+ChrootDirectory none
+Banner none
+AcceptEnv LANG LC_*
+
+# override default of no subsystems
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+
+Match User ingress-user-*
+	AllowTcpForwarding remote
+	AllowAgentForwarding no
+	ForceCommand /bin/false
+	PermitUserRC no
+	PermitTTY no
+	AuthorizedKeysFile /sshd/authorized_keys/authorized_keys.%u
