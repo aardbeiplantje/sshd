@@ -50,7 +50,7 @@ systemctl restart docker
 
 Add network:
 ```
-docker network create --ipv6 --subnet fd53:5729:c558:8d8f::/64 sshdipv6 --attachable=true --scope=swarm
+docker network create --ipv6 --subnet fd53:5729:c558:8d8f::/64 dmz-ipv6 --attachable=true --scope=swarm
 ```
 
 Deploy stack:
