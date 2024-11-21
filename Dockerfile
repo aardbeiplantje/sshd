@@ -1,4 +1,4 @@
-FROM alpine AS sshd
+FROM alpine AS sshd-runtime
 RUN apk add openssh --no-cache
 RUN apk update && apk upgrade
 
