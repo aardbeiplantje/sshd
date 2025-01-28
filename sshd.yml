@@ -25,7 +25,6 @@ services:
     image: ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/${APP_NAME}-sshd:latest
     hostname: "sshd"
     networks:
-      - dmz-ipv6
       - sshdipv4
     ports:
       - target: 22
@@ -46,8 +45,6 @@ services:
       - ssh-authorized-keys:/sshd/authorized_keys
 
 networks:
-  dmz-ipv6:
-    external: true
   sshdipv4:
     driver: overlay
     attachable: true
