@@ -30,15 +30,15 @@ services:
       - target: 22
         published: "${SSHD_EXTERNAL_INGRESS_PORT}"
         protocol: tcp
-        mode: host
+        mode: ingress
       - target: "${SSHD_INTERNAL_FORWARDING_PORT_01}"
         published: "${SSHD_EXTERNAL_FORWARDING_PORT_01}"
         protocol: tcp
-        mode: host
+        mode: ingress
       - target: "${SSHD_INTERNAL_FORWARDING_PORT_02}"
         published: "${SSHD_EXTERNAL_FORWARDING_PORT_02}"
         protocol: tcp
-        mode: host
+        mode: ingress
     volumes:
       - ssh-known-hosts:/sshd/known_hosts
       - ssh-host-keys:/sshd/host_keys
