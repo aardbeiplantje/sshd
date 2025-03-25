@@ -5,7 +5,7 @@ bash build.sh
 
 # Setup docker swarm:
 ```
-docker swarm init --default-addr-pool 10.0.0.0/8 --default-addr-pool-mask-length 24 --advertise-addr $IP
+docker swarm init --default-addr-pool 10.10.0.0/16 --default-addr-pool-mask-length 24 --advertise-addr $IP
 ```
 Add a node, on the manager:
 ```
@@ -47,12 +47,6 @@ systemctl restart docker
 ```
 
 # deploy
-
-Add network:
-```
-docker network create --ipv6 --subnet fd53:5729:c558:8d8f::/64 dmz-ipv6 --attachable=true --scope=swarm
-docker network create --scope=swarm -d overlay --ingress allmyingress
-```
 
 Deploy stack:
 ```

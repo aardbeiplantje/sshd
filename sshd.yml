@@ -50,12 +50,12 @@ networks:
     attachable: true
     driver_opts:
       encrypted: "1"
-      gateway: 10.11.0.1
+      gateway: 10.10.1.1
     internal: true
     ipam:
       driver: default
       config:
-        - subnet: 10.11.0.0/28
+        - subnet: 10.10.1.0/28
 
 volumes:
   ssh-known-hosts:
