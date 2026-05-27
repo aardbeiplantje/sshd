@@ -58,7 +58,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 10.99.1.0/28
+        - subnet: 10.99.1.0/24
 
 volumes:
   ssh-known-hosts:
