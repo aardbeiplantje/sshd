@@ -1,5 +1,18 @@
 # sshd
 
+## Environment Variables
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `WORKSPACE` | no | script directory | Directory containing the project files |
+| `DOCKER_IMAGE` | no | `local/network/sshd:latest` | Docker image to use |
+| `SSHD_AUTHORIZED_KEYS_DIR` | no | `~/.ingress_sshd_keys/` | Directory containing authorized_keys files |
+| `SSHD_EXTERNAL_INGRESS_PORT` | yes | - | External port for SSH ingress (container port 22) |
+| `SSHD_INTERNAL_FORWARDING_PORT_01` | yes | - | Internal port for first forwarding target |
+| `SSHD_EXTERNAL_FORWARDING_PORT_01` | no | same as `SSHD_INTERNAL_FORWARDING_PORT_01` | External port mapping for first forwarding target |
+| `SSHD_INTERNAL_FORWARDING_PORT_02` | yes | - | Internal port for second forwarding target |
+| `SSHD_EXTERNAL_FORWARDING_PORT_02` | no | same as `SSHD_INTERNAL_FORWARDING_PORT_02` | External port mapping for second forwarding target |
+
 ## Build
 
 ```
