@@ -23,13 +23,13 @@ docker compose down
 
 ## Add Users
 
-Place authorized keys files at `/mnt/ssd/docker-sshd/authorized-keys/`:
-```
-authorized_keys.ingress-user-<username>
-```
+Place authorized keys files at dir $SSHD_AUTH_KEYS_DIR, note that the default
+`~/.ingress_sshd_keys/`:
+
+``` authorized_keys.ingress-user-<username> ```
 
 Example:
 ```
-/mnt/ssd/docker-sshd/authorized-keys/authorized_keys.ingress-user-alice
-/mnt/ssd/docker-sshd/authorized-keys/authorized_keys.ingress-user-bob
+$SSHD_AUTH_KEYS_DIR/authorized_keys.ingress-user-alice
+$SSHD_AUTH_KEYS_DIR/authorized_keys.ingress-user-bob
 ```

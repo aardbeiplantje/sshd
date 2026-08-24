@@ -30,7 +30,7 @@ services:
       - ssh-known-hosts:/sshd/known_hosts
       - ssh-host-keys:/sshd/host_keys
       - type: bind
-        source: /mnt/ssd/docker-sshd/authorized-keys
+        source: "${SSHD_AUTHORIZED_KEYS_DIR}"
         target: /sshd/authorized_keys
         read_only: true
 
