@@ -58,6 +58,8 @@ networks:
     driver: bridge
     driver_opts:
       com.docker.network.bridge.gateway_mode_ipv4: "nat"
+      com.docker.network.bridge.enable_ip_masquerade: "true"  # Crucial to let NAT forward traffic back out
+      com.docker.network.bridge.inhibit_ipv4: "false"         # Ensures IPv4 isn't blocked on this bridge
     ipam:
       driver: default
       config:
