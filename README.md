@@ -48,3 +48,7 @@ Example:
 $SSHD_AUTH_KEYS_DIR/authorized_keys.ingress-user-alice
 $SSHD_AUTH_KEYS_DIR/authorized_keys.ingress-user-bob
 ```
+
+## License
+
+This project is unencumbered software released into the public domain. See [LICENSE](LICENSE) for details.
