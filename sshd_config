@@ -9,7 +9,7 @@ HostKey /sshd/host_keys/ssh_host_ed25519_key
 
 # Logging
 #SyslogFacility AUTH
-LogLevel DEBUG3
+LogLevel INFO
 
 LoginGraceTime 2m
 PermitRootLogin no

@@ -3,6 +3,14 @@ services:
     image: ${DOCKER_IMAGE:-local/network/sshd:latest}
     container_name: sshd-ingress-local-forward-${LOGNAME}
     restart: always
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=0
       - net.ipv6.conf.all.forwarding=1
@@ -24,6 +32,7 @@ services:
       - type: bind
         source: /mnt/ssd/docker-sshd/authorized-keys
         target: /sshd/authorized_keys
+        read_only: true
 
 networks:
   sshdipv4:
