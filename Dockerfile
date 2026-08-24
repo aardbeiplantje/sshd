@@ -3,7 +3,9 @@ RUN apk add --no-cache openssh-server && apk upgrade --no-cache
 
 VOLUME /sshd/host_keys
 VOLUME /sshd/known_hosts
-RUN mkdir -p /sshd/host_keys /sshd/known_hosts
+RUN mkdir -p /sshd/host_keys /sshd/known_hosts /sshd/chroot
+RUN chmod 755 /sshd/chroot
+RUN chown root:root /sshd/chroot
 COPY sshd_config /etc/ssh/sshd_config
 COPY sshd.sh /
 RUN :> /etc/passwd

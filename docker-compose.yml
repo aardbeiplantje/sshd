@@ -3,7 +3,6 @@ services:
     image: ${DOCKER_IMAGE:-local/network/sshd:latest}
     container_name: sshd-ingress-local-forward-${LOGNAME}
     restart: always
-    read_only: true
     tmpfs:
       - /tmp:size=1M
       - /var/tmp:size=1M
@@ -24,7 +23,7 @@ services:
     networks:
       - sshdipv4
     ports:
-      - target: 22
+      - target: 2222
         published: "${SSHD_EXTERNAL_INGRESS_PORT}"
         protocol: tcp
       - target: "${SSHD_INTERNAL_FORWARDING_PORT_01}"
@@ -51,3 +50,4 @@ networks:
 volumes:
   ssh-known-hosts:
   ssh-host-keys:
+  ssh-etc:
