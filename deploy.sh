@@ -1,12 +1,6 @@
 #!/bin/bash 
 export WORKSPACE=${WORKSPACE:-${BASH_SOURCE%/*}}
-export APP_NAME=${APP_NAME:-sshd}
-export STACK_NAME=${STACK_NAME:-$APP_NAME}
-printf -v now "%(%s)T" -1
-export CFG_PREFIX=$STACK_NAME-$now
-export STACK_CONFIG=${STACK_CONFIG:-$WORKSPACE}
-export STACK_CERTS=${STACK_CERTS:-$WORKSPACE}
-export REGISTRY_HTTP_SECRET=${REGISTRY_HTTP_SECRET:-$(uuidgen)}
+export CFG_PREFIX=sshd-ingress-local-forward-$LOGNAME-$(printf "%(%s)T" -1)
 export DOCKER_IMAGE=${DOCKER_IMAGE:-local/network/sshd:latest}
 export SSHD_EXTERNAL_INGRESS_PORT=${SSHD_EXTERNAL_INGRESS_PORT?Need SSHD_EXTERNAL_INGRESS_PORT}
 export SSHD_INTERNAL_FORWARDING_PORT_01=${SSHD_INTERNAL_FORWARDING_PORT_01?Need SSHD_INTERNAL_FORWARDING_PORT_01}
@@ -15,8 +9,4 @@ export SSHD_INTERNAL_FORWARDING_PORT_02=${SSHD_INTERNAL_FORWARDING_PORT_02?Need 
 export SSHD_EXTERNAL_FORWARDING_PORT_02=${SSHD_EXTERNAL_FORWARDING_PORT_02:-$SSHD_INTERNAL_FORWARDING_PORT_02}
 cd $WORKSPACE || exit $?
 docker buildx bake local
-docker stack deploy \
-    -c $WORKSPACE/$APP_NAME.yml \
-    --with-registry-auth \
-    --detach=false \
-    $STACK_NAME
+docker compose up -d

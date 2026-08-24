@@ -1,0 +1,37 @@
+services:
+  sshd:
+    image: ${DOCKER_IMAGE:-local/network/sshd:latest}
+    container_name: sshd-ingress-local-forward-${LOGNAME}
+    restart: always
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv6.conf.all.forwarding=1
+    networks:
+      - sshdipv4
+    ports:
+      - target: 22
+        published: "${SSHD_EXTERNAL_INGRESS_PORT}"
+        protocol: tcp
+      - target: "${SSHD_INTERNAL_FORWARDING_PORT_01}"
+        published: "${SSHD_EXTERNAL_FORWARDING_PORT_01:-$SSHD_INTERNAL_FORWARDING_PORT_01}"
+        protocol: tcp
+      - target: "${SSHD_INTERNAL_FORWARDING_PORT_02}"
+        published: "${SSHD_EXTERNAL_FORWARDING_PORT_02:-$SSHD_INTERNAL_FORWARDING_PORT_02}"
+        protocol: tcp
+    volumes:
+      - ssh-known-hosts:/sshd/known_hosts
+      - ssh-host-keys:/sshd/host_keys
+      - type: bind
+        source: /mnt/ssd/docker-sshd/authorized-keys
+        target: /sshd/authorized_keys
+
+networks:
+  sshdipv4:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.99.1.0/24
+
+volumes:
+  ssh-known-hosts:
+  ssh-host-keys:
