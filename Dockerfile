@@ -12,10 +12,10 @@ RUN :> /etc/passwd
 RUN :> /etc/group
 RUN :> /etc/shadow
 RUN echo "root:x:0:0:root:/root:/bin/sh" >> /etc/passwd
-RUN echo "sshd:x:22:22:sshd:/dev/null:/sbin/nologin" >> /etc/passwd
+RUN echo "sshd:x:22:22:sshd:/dev/null:/nologin" >> /etc/passwd
 RUN echo "root:x:0:" >> /etc/group
 RUN echo "sshd:x:22:" >> /etc/group
 RUN echo "root:*:16384:0:::" >> /etc/shadow
 RUN echo "sshd:*:16384:0:::" >> /etc/shadow
 
-ENTRYPOINT ["/sshd.sh"]
+ENTRYPOINT ["sh", "/sshd.sh"]

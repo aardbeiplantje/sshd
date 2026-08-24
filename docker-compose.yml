@@ -7,11 +7,13 @@ services:
       - /tmp:size=1M
       - /var/tmp:size=1M
       - /run:size=1M
-    cap_add:
-      - ALL
-      - NET_ADMIN
+      - /var/empty:size=1M
     cap_drop:
-      - SYS_ADMIN
+      - ALL
+    cap_add:
+      - SETUID
+      - SETGID
+      - CAP_SYS_CHROOT
     security_opt:
       - no-new-privileges:true
     mem_limit: 128m

@@ -3,7 +3,7 @@ i=5000
 for ssh_user in /sshd/authorized_keys/authorized_keys.ingress-user-*; do
     ssh_user=${ssh_user##*/}
     ssh_user=${ssh_user#authorized_keys.}
-    echo "$ssh_user:x:$i:$i::/var/empty:/sbin/nologin" >> /etc/passwd
+    echo "$ssh_user:x:$i:$i::/var/empty:/nologin" >> /etc/passwd
     echo "$ssh_user:x:$i:" >> /etc/group
     echo "$ssh_user:x:$i:" >> /etc/shadow
     i=$((i+1))
