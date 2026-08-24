@@ -1,5 +1,7 @@
 # sshd
 
+Dockerized SSH daemon for secure ingress with internal port forwarding. Provides SSH access on a configurable external port and forwards connections to one or two internal targets, using authorized keys for authentication.
+
 ## Environment Variables
 
 | Variable | Required | Default | Description |
