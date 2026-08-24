@@ -1,12 +1,9 @@
 FROM alpine AS runtime
-RUN apk add openssh --no-cache
-RUN apk update && apk upgrade
+RUN apk add --no-cache openssh-server && apk upgrade --no-cache
 
 VOLUME /sshd/host_keys
 VOLUME /sshd/known_hosts
-RUN mkdir -p /sshd/known_hosts
-RUN mkdir -p /sshd/host_keys
-RUN mkdir -p /sshd/authorized_keys
+RUN mkdir -p /sshd/host_keys /sshd/known_hosts
 COPY sshd_config /etc/ssh/sshd_config
 COPY sshd.sh /
 RUN :> /etc/passwd
