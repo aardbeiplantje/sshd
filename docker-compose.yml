@@ -12,8 +12,14 @@ services:
     security_opt:
       - no-new-privileges:true
     sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0
       - net.ipv6.conf.all.forwarding=1
+    mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 100
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 1024
     networks:
       - sshdipv4
     ports:
