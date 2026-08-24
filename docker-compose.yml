@@ -7,7 +7,6 @@ services:
     tmpfs:
       - /tmp:size=10M
       - /var/tmp:size=10M
-      - /var/run:size=10M
       - /run:size=10M
     cap_drop:
       - ALL
