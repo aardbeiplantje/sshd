@@ -7,12 +7,13 @@ services:
       - /tmp:size=1M
       - /var/tmp:size=1M
       - /run:size=1M
-    cap_drop:
+    cap_add:
       - ALL
+      - NET_ADMIN
+    cap_drop:
+      - SYS_ADMIN
     security_opt:
       - no-new-privileges:true
-    sysctls:
-      - net.ipv6.conf.all.forwarding=1
     mem_limit: 128m
     memswap_limit: 128m
     pids_limit: 100
@@ -21,11 +22,10 @@ services:
         soft: 1024
         hard: 1024
     networks:
-      - sshdipv4
+      - dmz
     ports:
-      - target: 2222
-        published: "${SSHD_EXTERNAL_INGRESS_PORT}"
-        protocol: tcp
+      - "0.0.0.0:${SSHD_EXTERNAL_INGRESS_PORT}:2222"
+      - "[::]:${SSHD_EXTERNAL_INGRESS_PORT}:2222"
       - target: "${SSHD_INTERNAL_FORWARDING_PORT_01}"
         published: "${SSHD_EXTERNAL_FORWARDING_PORT_01:-$SSHD_INTERNAL_FORWARDING_PORT_01}"
         protocol: tcp
@@ -41,11 +41,9 @@ services:
         read_only: true
 
 networks:
-  sshdipv4:
+  dmz:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 10.99.1.0/24
+    enable_ipv6: true
 
 volumes:
   ssh-known-hosts:
