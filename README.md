@@ -13,6 +13,9 @@ Dockerized SSH daemon for secure ingress with internal port forwarding. Provides
 | `SSHD_EXTERNAL_FORWARDING_PORT_01` | no | same as `SSHD_INTERNAL_FORWARDING_PORT_01` | External port mapping for first forwarding target |
 | `SSHD_INTERNAL_FORWARDING_PORT_02` | yes | - | Internal port for second forwarding target |
 | `SSHD_EXTERNAL_FORWARDING_PORT_02` | no | same as `SSHD_INTERNAL_FORWARDING_PORT_02` | External port mapping for second forwarding target |
+| `SSHD_IPV6_SUBNET` | yes | - | IPv6 subnet (e.g., `2a02:a03f:8789:e700:c::/120`) |
+| `SSHD_IPV6_GATEWAY` | yes | - | IPv6 gateway address (e.g., `2001:db8:c::2:1`) |
+| `SSHD_IPV6_ADDRESS` | yes | - | IPv6 address for the container (e.g., `2001:db8:c::2:2`) |
 
 ## Build
 
@@ -25,6 +28,9 @@ bash deploy.sh
 ```
 export SSHD_INTERNAL_FORWARDING_PORT_01=9998
 export SSHD_INTERNAL_FORWARDING_PORT_02=9999
+export SSHD_IPV6_SUBNET=2a02:a03f:8789:e700:c::/120
+export SSHD_IPV6_GATEWAY=2a02:a03f:8789:e700:c::2:1
+export SSHD_IPV6_ADDRESS=2a02:a03f:8789:e700:c::2:2
 bash deploy.sh
 ```
 
@@ -36,15 +42,15 @@ docker compose down
 
 ## Add Users
 
-Place authorized keys files at dir $SSHD_AUTH_KEYS_DIR, note that the default
+Place authorized keys files at dir $SSHD_AUTHORIZED_KEYS_DIR, note that the default
 `~/.ingress_sshd_keys/`:
 
 ``` authorized_keys.ingress-user-<username> ```
 
 Example:
 ```
-$SSHD_AUTH_KEYS_DIR/authorized_keys.ingress-user-alice
-$SSHD_AUTH_KEYS_DIR/authorized_keys.ingress-user-bob
+$SSHD_AUTHORIZED_KEYS_DIR/authorized_keys.ingress-user-alice
+$SSHD_AUTHORIZED_KEYS_DIR/authorized_keys.ingress-user-bob
 ```
 
 ## License

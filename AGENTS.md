@@ -9,17 +9,33 @@ Dockerized SSH daemon for secure ingress with internal port forwarding. Alpine-b
 - **Build only:** `docker buildx bake local`
 
 ## Deployment Prerequisites
-Both ports are required before deploy:
+All of these variables are required before deploy:
 ```bash
 export SSHD_INTERNAL_FORWARDING_PORT_01=9998
 export SSHD_INTERNAL_FORWARDING_PORT_02=9999
+export SSHD_IPV6_SUBNET=2a02:a03f:8789:e700:c::/120
+export SSHD_IPV6_GATEWAY=2a02:a03f:8789:e700:c::2:1
+export SSHD_IPV6_ADDRESS=2a02:a03f:8789:e700:c::2:2
 # Optional overrides:
 export SSHD_EXTERNAL_FORWARDING_PORT_01=9998
 export SSHD_EXTERNAL_FORWARDING_PORT_02=9999
 bash deploy.sh
 ```
 
-Defaults: `WORKSPACE` (script dir), `DOCKER_IMAGE=local/network/sshd:latest`, `SSHD_AUTHORIZED_KEYS_DIR=~/.ingress_sshd_keys/`
+## Environment Variables
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `WORKSPACE` | no | script directory (`${BASH_SOURCE%/*}`) | Directory containing the project files |
+| `DOCKER_IMAGE` | no | `local/network/sshd:latest` | Docker image to use |
+| `SSHD_AUTHORIZED_KEYS_DIR` | no | `~/.ingress_sshd_keys/` | Directory containing authorized_keys files |
+| `SSHD_INTERNAL_FORWARDING_PORT_01` | yes | - | Internal port for first forwarding target |
+| `SSHD_EXTERNAL_FORWARDING_PORT_01` | no | same as `SSHD_INTERNAL_FORWARDING_PORT_01` | External port mapping for first forwarding target |
+| `SSHD_INTERNAL_FORWARDING_PORT_02` | yes | - | Internal port for second forwarding target |
+| `SSHD_EXTERNAL_FORWARDING_PORT_02` | no | same as `SSHD_INTERNAL_FORWARDING_PORT_02` | External port mapping for second forwarding target |
+| `SSHD_IPV6_SUBNET` | yes | - | IPv6 subnet (e.g., `2a02:a03f:8789:e700:c::/120`) |
+| `SSHD_IPV6_GATEWAY` | yes | - | IPv6 gateway address (e.g., `2001:db8:c::2:1`) |
+| `SSHD_IPV6_ADDRESS` | yes | - | IPv6 address for the container (e.g., `2001:db8:c::2:2`) |
 
 ## Adding Users
 Place key files at `$SSHD_AUTHORIZED_KEYS_DIR` (default `~/.ingress_sshd_keys/`):
