@@ -11,5 +11,5 @@ export SSHD_IPV6_SUBNET=${SSHD_IPV6_SUBNET?Need SSHD_IPV6_SUBNET (e.g. 2001:db8:
 export SSHD_IPV6_GATEWAY=${SSHD_IPV6_GATEWAY?Need SSHD_IPV6_GATEWAY (e.g. 2001:db8:c::2:1)}
 export SSHD_IPV6_ADDRESS=${SSHD_IPV6_ADDRESS?Need SSHD_IPV6_ADDRESS (e.g. 2001:db8:c::2:2)}
 cd $WORKSPACE || exit $?
-docker buildx bake local
+docker buildx bake --pull local
 docker compose up -d
