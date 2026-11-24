@@ -26,6 +26,20 @@ bash deploy.sh
 
 The image is built for the host's native platform by default (`linux/arm64` on a Raspberry Pi 5, `linux/amd64` on x86). To build for another platform, set `DOCKER_PLATFORM`, e.g. `DOCKER_PLATFORM=linux/amd64 bash deploy.sh`.
 
+## Raspberry Pi (Raspberry Pi OS) memory limits
+
+Raspberry Pi OS ships with the memory cgroup controller disabled, so Docker cannot enforce `mem_limit`/`memswap_limit` (128m) and prints:
+
+```
+Your kernel does not support memory limit capabilities or the cgroup is not mounted. Limitation discarded.
+```
+
+The container still runs, but without the memory cap. To enable it:
+
+1. Append `cgroup_enable=memory cgroup_memory=1` to the end of the existing single line in `/boot/firmware/cmdline.txt` (on older releases: `/boot/cmdline.txt`). Keep it on one line, separated by a space, with no new line added.
+2. Reboot.
+3. Verify with `grep memory /proc/cgroups` (the `enabled` column should be `1`).
+
 ## Deploy
 
 ```
