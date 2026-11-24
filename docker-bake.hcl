@@ -19,11 +19,16 @@ variable "DOCKER_REPOSITORY" {
 variable "DOCKER_IMAGE_NAME" {
   default = "sshd"
 }
+# Platform for the local build, e.g. "linux/arm64". Empty (default) builds
+# for the host's native platform (arm64 on a Raspberry Pi 5, amd64 on x86).
+variable "DOCKER_PLATFORM" {
+  default = ""
+}
 
 target "_common" {
   context = "."
   dockerfile = "Dockerfile"
-  platforms = ["linux/amd64"]
+  platforms = DOCKER_PLATFORM == "" ? [] : [DOCKER_PLATFORM]
   networks = ["host"]
   buildkit = true
 }
