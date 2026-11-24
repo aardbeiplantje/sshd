@@ -53,6 +53,9 @@ Users are dynamically created at container startup from these files.
 - **External SSH port:** 22322
 - **Build:** `docker-bake.hcl` — local target outputs to docker daemon; `builds` target pushes multi-arch images
 
+## Git Workflow
+- Do not create a feature branch unless explicitly asked; commit on the current branch.
+
 ## Constraints
 - No root login, no passwords, no TTY, no agent forwarding
 - Memory: 128m, PIDs: 100, nofile: 1024
