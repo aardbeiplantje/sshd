@@ -8,6 +8,7 @@ Dockerized SSH daemon for secure ingress with internal port forwarding. Provides
 |---|---|---|---|
 | `WORKSPACE` | no | script directory | Directory containing the project files |
 | `DOCKER_IMAGE` | no | `local/network/sshd:latest` | Docker image to use |
+| `DOCKER_PLATFORM` | no | host native platform | Platform for the local build, e.g. `linux/arm64` or `linux/amd64` |
 | `SSHD_AUTHORIZED_KEYS_DIR` | no | `~/.ingress_sshd_keys/` | Directory containing authorized_keys files |
 | `SSHD_INTERNAL_FORWARDING_PORT_01` | yes | - | Internal port for first forwarding target |
 | `SSHD_EXTERNAL_FORWARDING_PORT_01` | no | same as `SSHD_INTERNAL_FORWARDING_PORT_01` | External port mapping for first forwarding target |
@@ -22,6 +23,8 @@ Dockerized SSH daemon for secure ingress with internal port forwarding. Provides
 ```
 bash deploy.sh
 ```
+
+The image is built for the host's native platform by default (`linux/arm64` on a Raspberry Pi 5, `linux/amd64` on x86). To build for another platform, set `DOCKER_PLATFORM`, e.g. `DOCKER_PLATFORM=linux/amd64 bash deploy.sh`.
 
 ## Deploy
 

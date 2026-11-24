@@ -28,6 +28,7 @@ bash deploy.sh
 |---|---|---|---|
 | `WORKSPACE` | no | script directory (`${BASH_SOURCE%/*}`) | Directory containing the project files |
 | `DOCKER_IMAGE` | no | `local/network/sshd:latest` | Docker image to use |
+| `DOCKER_PLATFORM` | no | host native platform | Platform for the local build, e.g. `linux/arm64` or `linux/amd64` |
 | `SSHD_AUTHORIZED_KEYS_DIR` | no | `~/.ingress_sshd_keys/` | Directory containing authorized_keys files |
 | `SSHD_INTERNAL_FORWARDING_PORT_01` | yes | - | Internal port for first forwarding target |
 | `SSHD_EXTERNAL_FORWARDING_PORT_01` | no | same as `SSHD_INTERNAL_FORWARDING_PORT_01` | External port mapping for first forwarding target |
@@ -51,7 +52,7 @@ Users are dynamically created at container startup from these files.
 - **Match block:** `ingress-user-*` gets `AllowTcpForwarding remote` and `GatewayPorts yes`
 - **Networks:** `dmz-ipv4` (10.99.1.0/24, NAT) and `dmz-ipv6` (2a02:a03f:8789:e700:c::/120, routed)
 - **External SSH port:** 22322
-- **Build:** `docker-bake.hcl` — local target outputs to docker daemon; `builds` target pushes multi-arch images
+- **Build:** `docker-bake.hcl` — local target builds for `DOCKER_PLATFORM` (default: host native, so arm64 on a Pi 5) and outputs to docker daemon; `builds` target pushes multi-arch images
 
 ## Git Workflow
 - Do not create a feature branch unless explicitly asked; commit on the current branch.
