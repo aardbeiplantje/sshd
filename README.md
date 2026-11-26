@@ -70,6 +70,22 @@ $SSHD_AUTHORIZED_KEYS_DIR/authorized_keys.ingress-user-alice
 $SSHD_AUTHORIZED_KEYS_DIR/authorized_keys.ingress-user-bob
 ```
 
+Users are created when the container starts, so restart the container after adding a new file (`docker compose restart`).
+
+The files must be owned by root and not writable by group or others, or sshd rejects them with `bad ownership or modes`. The directory containing them must also be owned by root. Files owned by your host user (for example uid 1000) will fail even with `644` permissions:
+
+```
+sudo chown root:root $SSHD_AUTHORIZED_KEYS_DIR $SSHD_AUTHORIZED_KEYS_DIR/authorized_keys.ingress-user-<username>
+sudo chmod 755 $SSHD_AUTHORIZED_KEYS_DIR
+sudo chmod 644 $SSHD_AUTHORIZED_KEYS_DIR/authorized_keys.ingress-user-<username>
+```
+
+To connect with a specific key, use `-o IdentitiesOnly=yes` so ssh-agent keys are not offered first. The server allows only 3 failed attempts (`MaxAuthTries 3`), so offering several agent keys can cause `Too many authentication failures`:
+
+```
+ssh -p 22322 -o IdentitiesOnly=yes -i ~/.ssh/ingress-user-<username> ingress-user-<username>@<host>
+```
+
 ## License
 
 This project is unencumbered software released into the public domain. See [LICENSE](LICENSE) for details.

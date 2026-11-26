@@ -44,7 +44,9 @@ Place key files at `$SSHD_AUTHORIZED_KEYS_DIR` (default `~/.ingress_sshd_keys/`)
 authorized_keys.ingress-user-alice
 authorized_keys.ingress-user-bob
 ```
-Users are dynamically created at container startup from these files.
+Users are dynamically created at container startup from these files, so restart the container after adding one.
+
+Key files must be owned by root with mode `644`, and their directory must be owned by root (`StrictModes` rejects other owners with `bad ownership or modes`). Connecting clients should use `-o IdentitiesOnly=yes` with `-i <key>`, since `MaxAuthTries` is 3 and agent keys offered first can exhaust it (`Too many authentication failures`).
 
 ## Architecture Notes
 - **Entry point:** `sshd.sh` — creates users from authorized_keys, generates host keys, execs sshd
